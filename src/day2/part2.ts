@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const filePath: string = path.join(__dirname, 'testInput.txt');
+const filePath: string = path.join(__dirname, 'input.txt');
 const fileContent: string = fs.readFileSync(filePath, 'utf-8');
 /* 
 Find the invalid numbers in a string sequence
@@ -28,19 +28,40 @@ const part1 = () => {
       count += evalId(i.toString());
     }
   }
-  console.log(count);
 };
-
+/**
+ * Start with the length of one 
+ * Set the found item to 0
+ * Create a loop that continues until the found item is returned or the length of eval string is over half of the input string
+ *    if the input cannot be devided equally by the length continue to next loop
+ *    split the input into chunks by length
+ *    if only one element continue to next loop
+ *    
+ *    
+ */
 const evalId = (input: string) => {
-  let length = 1;
-  const start = 0;
-  if (length > input.length / 2) {
-    return 0;
-  }
+  let length = 1
+  let count = 0;
 
-  const str = input.slice(0, length);
-  while (length - start <= input.length / 2) {}
-  return 0;
+  while(count === 0 &&  input.length / 2 >= length) {
+    if(input.length % length !== 0) {
+      length++
+      continue;
+    } 
+    const split = input.match(new RegExp(`.{1,${length}}`, 'g'));
+    if(!split) {
+      length++;
+      continue;
+    }
+    const isMatch = split.every(d => d === split[0]);
+    if(isMatch) {
+      count = Number(input);
+      continue;
+    }
+    length++
+  }
+  
+  return count
 };
 
 part1();
