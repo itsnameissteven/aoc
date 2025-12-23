@@ -7,12 +7,22 @@ const fileContent: string = fs.readFileSync(filePath, "utf-8");
 const part1 = () => {
   const grid = fileContent.split("\n").map((line) => line.split(""));
   let movedRolls = 0;
+
   for (let i = 0; i < grid.length; i++) {
     if (grid[i] !== undefined) {
       for (let j = 0; grid[i] && j < grid[i]!.length; j++) {
         const canBeMoved = evaluateSpot(grid, i, j);
         if (canBeMoved) {
+          if (grid[i] && grid[i][j]) {
+            grid[i][j] = "X";
+          }
+          if (grid[i - 1]) {
+            i = i - 2;
+          } else {
+            i = i - 1;
+          }
           movedRolls++;
+          break;
         }
       }
     }
@@ -33,7 +43,7 @@ const evaluateSpot = (grid: string[][], row: number, col: number) => {
   const spot = grid[row]?.[col];
   let count = 0;
 
-  if (spot === undefined || spot === ".") {
+  if (spot === undefined || spot === "." || spot === "X") {
     return false;
   }
 
@@ -44,6 +54,9 @@ const evaluateSpot = (grid: string[][], row: number, col: number) => {
     if (count === 4) break;
   }
   return count < 4;
+};
+const checkIsInBounds = (grid: string[][], row: number, col: number) => {
+  return !!grid[row]?.[col];
 };
 
 const checkForRole = (grid: string[][], row: number, col: number) => {

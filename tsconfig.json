@@ -3,7 +3,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es2020",
+    "target": "es2021",
     "types": ["node"],
     // Remove these lines:
     // "verbatimModuleSyntax": true,
@@ -14,7 +14,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "noUncheckedIndexedAccess": true,
+    // "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "strict": true,
     "jsx": "react-jsx",
