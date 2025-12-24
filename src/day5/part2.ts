@@ -49,7 +49,7 @@ const part2 = () => {
     return acc;
   }, 0);
 
-  console.log(sortedRanges, validIds, tally);
+  console.log(tally);
 };
 
 const formatRange = (str: string) => {
